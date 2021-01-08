@@ -4,7 +4,6 @@
 //
 //  Created by Stanley Rosenbaum on 1/7/21.
 //
-
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
@@ -24,7 +23,7 @@ import Foundation
 
 // MARK: - Meditations
 struct Meditations: Codable {
-	let meditations: [Meditation]
+	let meditations: [Meditation]?
 }
 
 //
@@ -39,40 +38,20 @@ struct Meditations: Codable {
 
 // MARK: - Meditation
 struct Meditation: Codable {
-	let backgroundImageURL: String?
-	let meditationDescription: String?
-	let featuredPosition: Int?
-	let free: Bool
-	let imageURL: String
-	let meditationOfTheDayDate, meditationOfTheDayDescription: String?
-	let newUntil: Date
-	let playCount: Int?
-	let position: Int
-	let releaseDate: String?
-	let searchTags: [SearchTag]
+	let uuid: String?
+	let imageURL: String?
 	let sections: [Section]?
-	let teacherName, teacherUUID: String
-	let timerShouldCountDown: Bool
-	let title, uuid: String
+	let teacherName: String?
+	let title: String?
+	let playCount: Int?
+
 
 	enum CodingKeys: String, CodingKey {
-		case backgroundImageURL = "background_image_url"
-		case meditationDescription = "description"
-		case featuredPosition = "featured_position"
-		case free
 		case imageURL = "image_url"
-		case meditationOfTheDayDate = "meditation_of_the_day_date"
-		case meditationOfTheDayDescription = "meditation_of_the_day_description"
-		case newUntil = "new_until"
-		case playCount = "play_count"
-		case position
-		case releaseDate = "release_date"
-		case searchTags = "search_tags"
-		case sections
 		case teacherName = "teacher_name"
-		case teacherUUID = "teacher_uuid"
-		case timerShouldCountDown = "timer_should_count_down"
 		case title, uuid
+		case sections
+		case playCount = "play_count"
 	}
 }
 
@@ -88,8 +67,8 @@ struct Meditation: Codable {
 
 // MARK: - SearchTag
 struct SearchTag: Codable {
-	let relatedTerms: [JSONAny]
-	let title: String
+	let relatedTerms: [JSONAny]?
+	let title: String?
 
 	enum CodingKeys: String, CodingKey {
 		case relatedTerms = "related_terms"
@@ -109,13 +88,12 @@ struct SearchTag: Codable {
 
 // MARK: - Section
 struct Section: Codable {
-	let startSecond: Int
+	let startSecond: Int?
 
 	enum CodingKeys: String, CodingKey {
 		case startSecond = "start_second"
 	}
 }
-
 
 // MARK: - URLSession response handlers
 

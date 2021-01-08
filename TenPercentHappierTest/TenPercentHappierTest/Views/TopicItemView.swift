@@ -39,12 +39,14 @@ struct TopicItemView: View {
 								HStack {
 									Text("\(topicTitle)")
 										.font(.headline)
+										.foregroundColor(.black)
 									Spacer()
 								}
 								HStack {
 									Text("\(numberOfMeditations) Meditations")
 										.font(.subheadline)
 										.fontWeight(.light)
+										.foregroundColor(.black)
 									Spacer()
 								}
 							}

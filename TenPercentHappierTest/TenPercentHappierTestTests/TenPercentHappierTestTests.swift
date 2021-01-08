@@ -34,7 +34,6 @@ class TenPercentHappierTestTests: XCTestCase {
 
 	}
 
-
 	func testTopicsViewModel() {
 
 		let topicsViewModel = TopicsViewModel()
@@ -45,7 +44,6 @@ class TenPercentHappierTestTests: XCTestCase {
 		XCTAssertTrue(topicsViewModel.topics?.count == 47, "topicsViewModel.topics != 47")
 	}
 
-
 	func testTopicItemViewModel() {
 
 		let topicsViewModel = TopicsViewModel()
@@ -54,6 +52,32 @@ class TenPercentHappierTestTests: XCTestCase {
 		print(topicsViewModel.topicItemViewModels.count as Any)
 
 //		XCTAssertTrue(topicsViewModel.topics?.count == 47, "topicsViewModel.topics != 47")
+	}
+
+	func testMeditationModel() {
+
+		guard let meditationsDataPath = Bundle.main.path(forResource: "meditations", ofType: "json") else {
+			fatalError("No meditations Data Found")
+		}
+		guard let jsonData = try? Data(contentsOf: URL(fileURLWithPath: meditationsDataPath)) else {
+			fatalError("Could not open.")
+		}
+
+		let allMeditations = try! JSONDecoder().decode(Meditations.self, from: jsonData)
+
+		print("\(allMeditations)")
+
+		XCTAssertTrue(type(of: allMeditations) == Meditations.self, "type(of: allMeditations) != Meditations")
+
+	}
+
+	func testMeditationsViewModel() {
+		let meditationsViewModel = MeditationsViewModel()
+
+		print("\(String(describing: meditationsViewModel.medications))")
+		print("\(String(describing: meditationsViewModel.medications?.count))")
+
+
 	}
 
 }

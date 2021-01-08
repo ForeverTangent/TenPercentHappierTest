@@ -8,13 +8,13 @@
 import Foundation
 import os
 
-
 struct TopicItemViewModel: Identifiable {
 	var id: String
 	let title: String?
 	let featured: Bool
 	let color: TopicColor
 	let numberOfMeditations: Int
+	let meditations: [String]
 }
 
 
@@ -36,42 +36,65 @@ class TopicsViewModel: ObservableObject {
 
 	var topics: [Topic]?
 
-	@Published var topicItemViewModels: [TopicItemViewModel]
-
+	@Published var topicItemViewModels: [TopicItemViewModel]?
 
 	init() {
-		guard let topicsDataPath = Bundle.main.path(forResource: "topics", ofType: "json") else {
-			fatalError("No topics Data Found")
-		}
-		guard let jsonData = try? Data(contentsOf: URL(fileURLWithPath: topicsDataPath)) else {
-			fatalError("Could not open.")
-		}
 
-		let allTopics = try! JSONDecoder().decode(Topics.self, from: jsonData)
+		let defaultSession = URLSession(configuration: .default)
+		var dataTask: URLSessionDataTask?
 
-		self.allTopics = allTopics
+		dataTask?.cancel()
 
-		self.topics = allTopics.topics.compactMap({ (topic) -> Topic? in
-			topic
-		})
-
-		self.topicItemViewModels = allTopics.topics.compactMap({ (topic) -> TopicItemViewModel? in
-			guard let theColor = topic.color else { return nil }
-			return TopicItemViewModel(id: topic.uuid,
-									  title: topic.title,
-									  featured: topic.featured,
-									  color: theColor,
-									  numberOfMeditations: topic.meditations.count)
-		}).filter({ (topicItemViewModel) -> Bool in
-			return topicItemViewModel.featured
-		}).sorted(by: { (lhs, rhs) -> Bool in
-			guard
-				let lhsTitle = lhs.title,
-				let rhsTitle = rhs.title else {
-				return false
+		// 2
+		if let urlComponents = URLComponents(string: "https://tenpercent-interview-project.s3.amazonaws.com/topics.json") {
+			guard let url = urlComponents.url else {
+				return
 			}
-			return lhsTitle < rhsTitle
-		})
+
+			dataTask = defaultSession.topicsTask(with: url) { topics, response, error in
+				defer {
+					dataTask = nil
+				}
+
+				if let theError = error {
+					self.logger.error("\(theError.localizedDescription)")
+				} else if
+					let theTopics = topics,
+					let response = response as? HTTPURLResponse,
+					response.statusCode == 200 {
+
+					let allTopics = theTopics
+
+					self.allTopics = allTopics
+
+					self.topics = allTopics.topics.compactMap({ (topic) -> Topic? in
+						topic
+					})
+
+					self.topicItemViewModels = allTopics.topics.compactMap({ (topic) -> TopicItemViewModel? in
+						guard let theColor = topic.color else { return nil }
+						return TopicItemViewModel(id: topic.uuid,
+												  title: topic.title,
+												  featured: topic.featured,
+												  color: theColor,
+												  numberOfMeditations: topic.meditations.count,
+												  meditations: topic.meditations)
+					}).filter({ (topicItemViewModel) -> Bool in
+						return topicItemViewModel.featured
+					}).sorted(by: { (lhs, rhs) -> Bool in
+						guard
+							let lhsTitle = lhs.title,
+							let rhsTitle = rhs.title else {
+							return false
+						}
+						return lhsTitle < rhsTitle
+					})
+				}
+			}
+
+			dataTask?.resume()
+
+		}
 
 	}
 

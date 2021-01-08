@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MeditationItemView: View {
+	var imageURL: String?
 	var lessonTitle: String
 	var instructor: String
     var body: some View {
@@ -33,6 +34,6 @@ struct MeditationItemView: View {
 
 struct MeditationItem_Previews: PreviewProvider {
     static var previews: some View {
-		MeditationItemView(lessonTitle: "Guidelines👍", instructor: "Instructor")
+		MeditationItemView(imageURL: nil, lessonTitle: "Guidelines👍", instructor: "Instructor")
     }
 }
