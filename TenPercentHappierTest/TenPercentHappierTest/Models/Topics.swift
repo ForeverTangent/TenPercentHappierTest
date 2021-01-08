@@ -76,16 +76,47 @@ enum TopicColor: String, Codable {
 		switch value {
 			case .tCyan:
 				return Color.blue
+//				return translateColor(valueString: TopicColor.tCyan.rawValue)
 			case .tGreen:
 				return Color.green
+//				return translateColor(valueString: TopicColor.tGreen.rawValue)
 			case .tPaleBlue:
 				return Color.blue
+//				return translateColor(valueString: TopicColor.tPaleBlue.rawValue)
 			case .tPurple:
 				return Color.purple
+//				return translateColor(valueString: TopicColor.tPurple.rawValue)
 			case .tGray:
 				return Color.gray
+//				return translateColor(valueString: TopicColor.tGray.rawValue)
 		}
 	}
+
+
+	/**
+	WHY NOT?!?!?!?!?!?!!?
+
+	ARGH>!!>!>!>!>!>!!>!>
+	*/
+	static func translateColor(valueString: String) -> Color {
+
+		let noSharp = String(valueString.dropFirst(1))
+		let redString = String(noSharp.dropLast(4))
+		let redInt = Int(redString, radix: 16)!
+
+		let noRed = String(noSharp.dropFirst(2))
+		let greenString = String(noRed.dropLast(2))
+		let greenInt = Int(greenString, radix: 16)!
+
+		let blueString = String(noRed.dropFirst(2))
+		let blueInt = Int(blueString, radix: 16)!
+
+		return Color(red: Double(redInt/255),
+					 green: Double(greenInt/255),
+					 blue: Double(blueInt/255))
+		
+	}
+
 }
 
 extension String {

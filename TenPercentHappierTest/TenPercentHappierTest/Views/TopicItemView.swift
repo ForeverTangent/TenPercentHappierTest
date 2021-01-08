@@ -71,6 +71,6 @@ struct TopicItem_Previews: PreviewProvider {
 		TopicItemView(uuid: "1234",
 					  topicTitle: "Test Title",
 					  numberOfMeditations: 38,
-					  tabColor: .red)
+					  tabColor: TopicColor.getUIColor(value: TopicColor.tCyan))
 	}
 }
