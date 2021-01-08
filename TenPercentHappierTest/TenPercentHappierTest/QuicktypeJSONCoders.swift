@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Quicktype Common functions.
 
 // MARK: - Helper functions for creating encoders and decoders
 
