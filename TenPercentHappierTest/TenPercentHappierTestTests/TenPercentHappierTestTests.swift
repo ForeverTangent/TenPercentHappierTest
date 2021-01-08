@@ -41,7 +41,9 @@ class TenPercentHappierTestTests: XCTestCase {
 		print(topicsViewModel.topics as Any)
 		print(topicsViewModel.topics?.count as Any)
 
-		XCTAssertTrue(topicsViewModel.topics?.count == 47, "topicsViewModel.topics != 47")
+		XCTAssertEqual(topicsViewModel.topics?.count, 47)
+
+//		XCTAssertTrue(topicsViewModel.topics?.count == 47, "topicsViewModel.topics != 47")
 	}
 
 	func testTopicItemViewModel() {
@@ -49,7 +51,7 @@ class TenPercentHappierTestTests: XCTestCase {
 		let topicsViewModel = TopicsViewModel()
 
 		print(topicsViewModel.topicItemViewModels as Any)
-		print(topicsViewModel.topicItemViewModels.count as Any)
+		print(topicsViewModel.topicItemViewModels?.count as Any)
 
 //		XCTAssertTrue(topicsViewModel.topics?.count == 47, "topicsViewModel.topics != 47")
 	}

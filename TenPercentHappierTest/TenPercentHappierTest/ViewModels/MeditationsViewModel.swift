@@ -107,7 +107,7 @@ class MeditationsViewModel: ObservableObject {
 //		guard let jsonData = try? Data(contentsOf: URL(fileURLWithPath: topicsDataPath)) else {
 //			fatalError("Could not open.")
 //		}
-//
+
 //		let allMeditations = try! JSONDecoder().decode(Meditations.self, from: jsonData)
 //
 //
