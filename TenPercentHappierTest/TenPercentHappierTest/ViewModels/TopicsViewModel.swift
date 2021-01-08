@@ -13,6 +13,7 @@ Our Filters Topics View Model
 */
 struct TopicItemViewModel: Identifiable {
 	var id: String
+	var parentID: String?
 	let title: String?
 	let featured: Bool
 	let color: TopicColor
@@ -80,15 +81,18 @@ class TopicsViewModel: ObservableObject {
 
 					DispatchQueue.main.async {
 						self.topicItemViewModels = allTopics.topics.compactMap({ (topic) -> TopicItemViewModel? in
-							guard let theColor = topic.color else { return nil }
+							guard
+								let theColor = topic.color,
+								let theParentUUID = topic.parentUUID else { return nil }
 							return TopicItemViewModel(id: topic.uuid,
+													  parentID: theParentUUID,
 													  title: topic.title,
 													  featured: topic.featured,
 													  color: theColor,
 													  numberOfMeditations: topic.meditations.count,
 													  meditations: topic.meditations)
 						}).filter({ (topicItemViewModel) -> Bool in
-							return topicItemViewModel.featured
+							return topicItemViewModel.featured || (topicItemViewModel.parentID != nil)
 						}).sorted(by: { (lhs, rhs) -> Bool in
 							guard
 								let lhsTitle = lhs.title,
