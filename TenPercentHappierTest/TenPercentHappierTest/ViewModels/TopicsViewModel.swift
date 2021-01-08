@@ -32,7 +32,6 @@ class TopicsViewModel: ObservableObject {
 	private static let category = "TopicsViewModel"
 	private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: category)
 
-
 	var allTopics: Topics?
 //	// Mainly for Testing
 //	{
