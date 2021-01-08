@@ -34,7 +34,8 @@ struct MeditationsView: View {
 						let theInstructor = meditationItem.teacherName,
 						let theImageURL = meditationItem.imageURL {
 
-						MeditationItemView(imageURL: theImageURL,
+						MeditationItemView(imageViewModel:
+											MeditationItemImageViewModel(urlString: theImageURL),
 										   lessonTitle: theTitle,
 										   instructor: theInstructor)
 					}

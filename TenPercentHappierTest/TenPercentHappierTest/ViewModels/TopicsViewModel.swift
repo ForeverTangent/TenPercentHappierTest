@@ -71,24 +71,26 @@ class TopicsViewModel: ObservableObject {
 						topic
 					})
 
-					self.topicItemViewModels = allTopics.topics.compactMap({ (topic) -> TopicItemViewModel? in
-						guard let theColor = topic.color else { return nil }
-						return TopicItemViewModel(id: topic.uuid,
-												  title: topic.title,
-												  featured: topic.featured,
-												  color: theColor,
-												  numberOfMeditations: topic.meditations.count,
-												  meditations: topic.meditations)
-					}).filter({ (topicItemViewModel) -> Bool in
-						return topicItemViewModel.featured
-					}).sorted(by: { (lhs, rhs) -> Bool in
-						guard
-							let lhsTitle = lhs.title,
-							let rhsTitle = rhs.title else {
-							return false
-						}
-						return lhsTitle < rhsTitle
-					})
+					DispatchQueue.main.async {
+						self.topicItemViewModels = allTopics.topics.compactMap({ (topic) -> TopicItemViewModel? in
+							guard let theColor = topic.color else { return nil }
+							return TopicItemViewModel(id: topic.uuid,
+													  title: topic.title,
+													  featured: topic.featured,
+													  color: theColor,
+													  numberOfMeditations: topic.meditations.count,
+													  meditations: topic.meditations)
+						}).filter({ (topicItemViewModel) -> Bool in
+							return topicItemViewModel.featured
+						}).sorted(by: { (lhs, rhs) -> Bool in
+							guard
+								let lhsTitle = lhs.title,
+								let rhsTitle = rhs.title else {
+								return false
+							}
+							return lhsTitle < rhsTitle
+						})
+					}
 				}
 			}
 

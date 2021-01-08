@@ -16,8 +16,6 @@ struct MeditationItemViewModel: Identifiable {
 	let playCount: Int?
 }
 
-
-
 class MeditationsViewModel: ObservableObject {
 
 	// MARK: - Properties
@@ -38,9 +36,6 @@ class MeditationsViewModel: ObservableObject {
 	@Published var meditationItemViewModels: [MeditationItemViewModel]?
 
 	init() {
-
-
-
 		let defaultSession = URLSession(configuration: .default)
 		var dataTask: URLSessionDataTask?
 
@@ -80,18 +75,22 @@ class MeditationsViewModel: ObservableObject {
 													   playCount: meditation.playCount)
 					}) ?? [MeditationItemViewModel]()
 
-					self.meditationItemViewModels = theMeditationItemViewModels.sorted(by: { (lhs, rhs) -> Bool in
-						guard
-							let theLHSPlayCount = lhs.playCount,
-							let theRHSPlayCount = rhs.playCount else { return false }
-						return theLHSPlayCount > theRHSPlayCount
-					})
+					DispatchQueue.main.async {
+						self.meditationItemViewModels = theMeditationItemViewModels.sorted(by: { (lhs, rhs) -> Bool in
+							guard
+								let theLHSPlayCount = lhs.playCount,
+								let theRHSPlayCount = rhs.playCount else { return false }
+							return theLHSPlayCount > theRHSPlayCount
+						})
+					}
+
 				}
 			}
 
 			dataTask?.resume()
 
 
+		// Old Code for loading locally for testing.
 //		guard let topicsDataPath = Bundle.main.path(forResource: "meditations", ofType: "json") else {
 //			fatalError("No meditations Data Found")
 //		}

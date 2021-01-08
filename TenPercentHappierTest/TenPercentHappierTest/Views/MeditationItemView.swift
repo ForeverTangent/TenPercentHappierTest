@@ -7,17 +7,25 @@
 
 import SwiftUI
 
+
 struct MeditationItemView: View {
-	var imageURL: String?
+	@ObservedObject var imageViewModel: MeditationItemImageViewModel
+	
 	var lessonTitle: String
 	var instructor: String
-    var body: some View {
+
+	static var defaultImage = UIImage(named: "NewsIcon")
+
+
+	var body: some View {
 		HStack {
 			Button(action: {
 				print("Edit button was tapped")
 			}) {
-				Image(systemName: "pencil")
+				Image(uiImage: imageViewModel.image)
+					.resizable()
 					.frame(width: 50.0, height: 50.0)
+
 			}
 			VStack(alignment: .leading) {
 				Text(lessonTitle)
@@ -29,11 +37,15 @@ struct MeditationItemView: View {
 		}
 		.padding(.all)
 		.frame(height: 50.0)
-    }
+	}
 }
 
+
 struct MeditationItem_Previews: PreviewProvider {
-    static var previews: some View {
-		MeditationItemView(imageURL: nil, lessonTitle: "Guidelines👍", instructor: "Instructor")
-    }
+	static var previews: some View {
+		MeditationItemView(imageViewModel:
+							MeditationItemImageViewModel(urlString: "https://production.assets.changecollective.com/uploads/meditation/image/2/topicTile_begin.png"),
+						   lessonTitle: "Lession 1",
+						   instructor: "Guru")
+	}
 }
