@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/**
+Meditations View
+*/
 struct MeditationsView: View {
 	@ObservedObject var meditationsViewModel = MeditationsViewModel()
 

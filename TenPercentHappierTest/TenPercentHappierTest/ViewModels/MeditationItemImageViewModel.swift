@@ -16,7 +16,7 @@ class MeditationItemImageViewModel: ObservableObject {
 	private var imageURLString: String?
 
 	private static let subsystem = Bundle.main.bundleIdentifier!
-	private static let category = "ImageViewModel"
+	private static let category = "MeditationItemImageViewModel"
 	private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: category)
 
 	init(urlString: String?) {
@@ -47,7 +47,6 @@ class MeditationItemImageViewModel: ObservableObject {
 				self.image = loadedImage
 			}
 		}
-
 
 		task.resume()
 	}

@@ -8,6 +8,9 @@
 import Foundation
 import os
 
+/**
+Our Filters Topics View Model
+*/
 struct TopicItemViewModel: Identifiable {
 	var id: String
 	let title: String?
@@ -18,6 +21,9 @@ struct TopicItemViewModel: Identifiable {
 }
 
 
+/**
+Main Topics View Model
+*/
 class TopicsViewModel: ObservableObject {
 	
 	// MARK: - Properties
@@ -27,12 +33,14 @@ class TopicsViewModel: ObservableObject {
 	private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: category)
 
 
-	var allTopics: Topics? {
-		didSet {
-			guard let theTopics = allTopics else { return }
-			print(theTopics)
-		}
-	}
+	var allTopics: Topics?
+//	// Mainly for Testing
+//	{
+//		didSet {
+//			guard let theTopics = allTopics else { return }
+//			print(theTopics)
+//		}
+//	}
 
 	var topics: [Topic]?
 

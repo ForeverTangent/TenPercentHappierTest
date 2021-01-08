@@ -2,11 +2,13 @@
 //  TopicItem.swift
 //  TenPercentHappierTest
 //
-//  Created by Stanley Rosenbaum on 1/6/21./Users/staque/Development/GitHub/TenPercentHappierTest/TenPercentHappierTest/TenPercentHappierTest/TopicsView.swift:28:12: Cannot convert value of type '[Topic]?' to expected argument type 'Range<Int>'
-//
+//  Created by Stanley Rosenbaum on 1/6/21
 
 import SwiftUI
 
+/**
+Topic Item View
+*/
 struct TopicItemView: View {
 
 	var uuid: String

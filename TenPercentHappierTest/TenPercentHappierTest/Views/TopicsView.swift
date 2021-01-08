@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/**
+Top Topics View
+*/
 struct TopicsView: View {
 	@ObservedObject var topicsViewModel = TopicsViewModel()
 

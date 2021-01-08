@@ -8,6 +8,12 @@
 import Foundation
 import os
 
+
+/**
+Meditations Items View Model
+
+Basically the same but read for use in the view.
+*/
 struct MeditationItemViewModel: Identifiable {
 	let id: String?
 	let imageURL: String?
@@ -16,24 +22,29 @@ struct MeditationItemViewModel: Identifiable {
 	let playCount: Int?
 }
 
+/**
+Main Meditation View Model
+*/
 class MeditationsViewModel: ObservableObject {
 
 	// MARK: - Properties
 
 	private static let subsystem = Bundle.main.bundleIdentifier!
-	private static let category = "TopicsViewModel"
+	private static let category = "MeditationsViewModel"
 	private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: category)
+
+	@Published var meditationItemViewModels: [MeditationItemViewModel]?
 
 	var allMeditations: Meditations?
 
-	var medications: [Meditation]? {
-		didSet {
-			guard let theMedications = medications else { return }
-			print(theMedications)
-		}
-	}
-
-	@Published var meditationItemViewModels: [MeditationItemViewModel]?
+	var medications: [Meditation]?
+//	// Mainly for Testing.
+//	{
+//		didSet {
+//			guard let theMedications = medications else { return }
+//			print(theMedications)
+//		}
+//	}
 
 	init() {
 		let defaultSession = URLSession(configuration: .default)
@@ -41,7 +52,6 @@ class MeditationsViewModel: ObservableObject {
 
 		dataTask?.cancel()
 
-		// 2
 		if let urlComponents = URLComponents(string: "https://tenpercent-interview-project.s3.amazonaws.com/meditations.json") {
 			guard let url = urlComponents.url else {
 				return

@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-
+/**
+Meditations Item View
+*/
 struct MeditationItemView: View {
 	@ObservedObject var imageViewModel: MeditationItemImageViewModel
 	
@@ -15,7 +17,6 @@ struct MeditationItemView: View {
 	var instructor: String
 
 	static var defaultImage = UIImage(named: "NewsIcon")
-
 
 	var body: some View {
 		HStack {

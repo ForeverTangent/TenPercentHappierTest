@@ -3,7 +3,9 @@
 //  TenPercentHappierTest
 //
 //  Created by Stanley Rosenbaum on 1/7/21.
-//
+
+// Using Good Old Quikctype
+// 
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
